@@ -23,13 +23,13 @@ class Piece():
 class Bishop(Piece):
     def __init__(self,*args):
         super().__init__(*args,'B')
-    def move(self,coords):
-        coords=Piece.convert_to_coords(Piece(0,coords,self.brd,self.typ))
+    def move(self,coords3):
+        coords=Piece.convert_to_coords(Piece(0,coords3,self.brd,self.typ))
         coords2= self.convert_to_coords()
         for piece in brd:
             crds = Piece.convert_to_coords(Piece(0,piece["pos"],[],[]))
-            if (crds == coords2) && (piece["color"] == self.color):
-                raise PieceBlockingMovementError("bishop",coords)
+            if (crds == coords2) and (piece["color"] == self.color):
+                raise PieceBlockingMovementError("bishop",coords3)
                 
             if abs(coords[0]-crds[0])==abs(coords[1]-crds[1]):
                 if abs(coords[0]-coords2[0])==abs(coords[1]-coords2[1]):
@@ -38,7 +38,7 @@ class Bishop(Piece):
                             raise PieceBlockingMovementError("bishop",coords)
                     
         if abs(coords[0]-coords2[0])==abs(coords[1]-coords2[1]):
-            self.pos= coords_to_pos(coords)
+            self.pos= coords_to_pos(coords3)
         else:
             raise DiagonalError()
 #b=Bishop('b','f6',[])
