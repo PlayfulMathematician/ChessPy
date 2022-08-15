@@ -32,7 +32,10 @@ class Bishop(Piece):
                 raise PieceBlockingMovementError("bishop",coords)
                 
             if abs(coords[0]-crds[0])==abs(coords[1]-crds[1]):
-                pass
+                if abs(coords[0]-coords2[0])==abs(coords[1]-coords2[1]):
+                    if abs(crds[0]-coords2[0])==abs(crds[1]-coords2[1]):
+                        if abs(coords[0]-crds[0]) < abs(coords[0]-coords2[0]):
+                            raise PieceBlockingMovementError("bishop",coords)
                     
         if abs(coords[0]-coords2[0])==abs(coords[1]-coords2[1]):
             self.pos= coords_to_pos(coords)
