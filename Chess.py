@@ -2,6 +2,8 @@ import copy
 class MoveError(Exception):
     pass
 DiagonalError = lambda:MoveError("bishop must move diagonally")
+CaptureKingError = lambda:MoveError("You can't capture the opponents king")
+
 PieceBlockingMovementError = lambda piece_name,loc: MoveError(f"there is a piece blocking the {piece_name} from moving to {loc}")
 def coords_to_pos(coords):
     convert_dict={'a':1,'b':2,'c':3,'d':4,'e':5,'f':6,'h':7}
@@ -26,11 +28,15 @@ class Bishop(Piece):
     def move(self,coords3):
         coords=Piece.convert_to_coords(Piece(0,coords3,self.brd,self.typ))
         coords2= self.convert_to_coords()
-        for piece in brd:
+        for idx,piece in enumerate(copy.copy(brd)):
             crds = Piece.convert_to_coords(Piece(0,piece["pos"],[],[]))
             if (crds == coords2) and (piece["color"] == self.color):
                 raise PieceBlockingMovementError("bishop",coords3)
-                
+            if (crds == coords2) and not piece["color"] == self.color:
+                if piece['typ'] = 'K':
+                    raise CaptureKingError()
+                else:
+                    del brd[idx]
             if abs(coords[0]-crds[0])==abs(coords[1]-crds[1]):
                 if abs(coords[0]-coords2[0])==abs(coords[1]-coords2[1]):
                     if abs(crds[0]-coords2[0])==abs(crds[1]-coords2[1]):
