@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 class MoveError(Exception):
     pass
 DiagonalError = lambda:MoveError("bishop must move diagonally")
@@ -28,7 +28,7 @@ class Bishop(Piece):
     def move(self,coords3):
         coords=Piece.convert_to_coords(Piece(0,coords3,self.brd,self.typ))
         coords2= self.convert_to_coords()
-        for idx,piece in enumerate(copy.copy(brd)):
+        for idx,piece in enumerate(copy(brd)):
             crds = Piece.convert_to_coords(Piece(0,piece["pos"],[],[]))
             if (crds == coords2) and (piece["color"] == self.color):
                 raise PieceBlockingMovementError("bishop",coords3)
